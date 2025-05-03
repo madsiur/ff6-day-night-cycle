@@ -26,6 +26,6 @@ This is a revival of my day-night cycle hack project that was about
 
 ![Nighttime in Narshe](media/screenshot_b.png)
 
-![Nighttime airship ride](media/screenshot_b.png)
+![Nighttime airship ride](media/screenshot_c.png)
 
 
