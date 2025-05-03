@@ -1,0 +1,12 @@
+.devcontainer
+asm/old
+asm/bin
+data/data.ods
+rom/*.smc
+rom/*.sfc
+util/bass
+util/flips
+vanilla/*.smc
+vanilla/*.sfc
+
+
