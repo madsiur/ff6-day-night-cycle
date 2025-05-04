@@ -1,3 +1,3 @@
 # Utilities
 
-You need to have the `bass` utility in the `util/bass` folder.
+You need to have the `bass` and `flips` utilities in this folder.

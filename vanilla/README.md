@@ -1,6 +1,7 @@
 # Vanilla ROM
 
 You need the following Final Fantasy 6 ROM in this folder.
+
 ```
 Database match: Final Fantasy III (USA)
 Database: No-Intro: Super Nintendo Entertainment System (v. 20210222-050638)
