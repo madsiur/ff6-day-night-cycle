@@ -1,17 +1,12 @@
 #!/bin/bash
 
-# Build script
-
-# Set hack name and timestamp
 HACK_NAME="day_night_cycle_nh"
-TEMP_NAME="transition"
-TIMESTAMP=$(date +"%Y%m%d%H%M%S")
-MAX_SIZE=$((0x400000))
+TEMP_NAME="temp"
 
 # find the first .smc or .sfc file in the vanilla directory
 ORIGINAL_ROM=$(find vanilla -maxdepth 1 -type f \( -iname "*.smc" -o -iname "*.sfc" \) | head -n 1)
 
-# validate ROM was found
+# validate that a ROM was found
 if [[ -z "$ORIGINAL_ROM" ]]; then
     echo "Error: No .smc or .sfc ROM file found in the vanilla directory"
     exit 1
@@ -19,19 +14,14 @@ fi
 
 TEMP_ROM="rom/${TEMP_NAME}.smc"
 HACKED_ROM="rom/${HACK_NAME}.smc"
-PATCH_NAME="rom/${HACK_NAME}_${TIMESTAMP}.ips"
+PATCH_NAME="rom/${HACK_NAME}" 
+PATCH_NAME_IPS="${PATCH_NAME}.ips"
+PATCH_NAME_BPS="${PATCH_NAME}.bps"
 
 cp "$ORIGINAL_ROM" "$TEMP_ROM"
 
-# get current ROM size
-ROM_SIZE=$(stat -c%s "$TEMP_ROM")
-
-# check if it's smaller than 4MB and pad if so
-if (( ROM_SIZE < MAX_SIZE )); then
-    PAD_SIZE=$((MAX_SIZE - ROM_SIZE))
-    echo "Padding ROM: adding $PAD_SIZE bytes"
-    dd if=/dev/zero bs=1 count="$PAD_SIZE" >> "$TEMP_ROM" status=none
-fi
+# pad ROM to 32 Mbit if smaller
+python util/python/pad_rom.py "$TEMP_ROM"
 
 cp "$TEMP_ROM" "$HACKED_ROM"
 
@@ -42,17 +32,34 @@ if [[ $? -ne 0 ]]; then
     exit 1
 fi
 
+echo "ROM $HACKED_ROM successfully created!"
+
+# fix SNES checksum
+python util/python/fix_checksum.py "$HACKED_ROM"
+
 # create IPS patch
-util/flips --create --ips "$TEMP_ROM" "$HACKED_ROM" "$PATCH_NAME" > /dev/null
+util/flips --create --ips "$TEMP_ROM" "$HACKED_ROM" "$PATCH_NAME_IPS" > /dev/null
 if [[ $? -ne 0 ]]; then
-    echo "Error: patch creation with flips failed"
+    echo "Error: IPS patch creation with flips failed"
     exit 1
 fi
+
+echo "IPS patch $PATCH_NAME_IPS successfully created!"
+
+# create BPS patch
+util/flips --create --bps "$TEMP_ROM" "$HACKED_ROM" "$PATCH_NAME_BPS" > /dev/null
+if [[ $? -ne 0 ]]; then
+    echo "Error: BPS patch creation with flips failed"
+    exit 1
+fi
+
+echo "BPS patch $PATCH_NAME_BPS successfully created!"
 
 # delete temp ROM
 if [[ -f "$TEMP_ROM" ]]; then
     rm "$TEMP_ROM"
 fi
 
-echo "ROM $HACKED_ROM successfully created!"
-echo "IPS patch $PATCH_NAME successfully created!"
+
+
+

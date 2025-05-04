@@ -1,4 +1,5 @@
 .devcontainer
+__pycache__
 asm/data
 asm/old
 data/data.ods
