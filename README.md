@@ -5,7 +5,7 @@ This is a revival of my day-night cycle hack project that was about
 
 ## Base hack roadmap
 - [x] Redo project structure
-- [ ] Create basic build bash script
+- [x] Create basic build bash script
 - [ ] Redo properly data spreadsheets
 - [ ] Convert the 2018 xkas 0.06 code to bass v18 code
 - [ ] Finish at 100% the base hack
