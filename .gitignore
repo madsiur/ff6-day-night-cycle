@@ -1,9 +1,11 @@
 .devcontainer
+asm/data
 asm/old
-asm/bin
 data/data.ods
+rom/*.ips
 rom/*.smc
 rom/*.sfc
+util/arch
 util/bass
 util/flips
 vanilla/*.smc
