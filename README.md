@@ -6,10 +6,10 @@ This is a revival of my day-night cycle hack project that was about
 ## Base hack roadmap
 - [x] Redo project structure
 - [x] Create basic build script
-- [ ] Redo data spreadsheets
-- [ ] Convert the 2018 xkas 0.06 code to bass v18 code
+- [x] Redo data spreadsheets
+- [ ] Convert the project from xkas 0.06 to bass v14s
 - [ ] Finish at 100% the base hack
-- [ ] Beta test round
+- [ ] Full playthrough, beta testing round
 - [ ] Release version 1.0 of the base hack
 
 ## Links

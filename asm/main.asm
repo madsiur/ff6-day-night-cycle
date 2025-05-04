@@ -3,7 +3,7 @@ arch snes.cpu
 include "var/global.asm"
 include "functions/bass.asm"
 include "functions/hack.asm"
-//include "data/data.asm"
+include "data/data.asm"
 
 //=======================================
 // internal header
