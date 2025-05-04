@@ -2,6 +2,7 @@
 asm/data
 asm/old
 data/data.ods
+rom/*.bps
 rom/*.ips
 rom/*.smc
 rom/*.sfc
