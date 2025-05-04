@@ -5,8 +5,8 @@ This is a revival of my day-night cycle hack project that was about
 
 ## Base hack roadmap
 - [x] Redo project structure
-- [x] Create basic build bash script
-- [ ] Redo properly data spreadsheets
+- [x] Create basic build script
+- [ ] Redo data spreadsheets
 - [ ] Convert the 2018 xkas 0.06 code to bass v18 code
 - [ ] Finish at 100% the base hack
 - [ ] Beta test round
@@ -20,12 +20,8 @@ This is a revival of my day-night cycle hack project that was about
 
 [2018 FF6Hacking wiki page](https://www.ff6hacking.com/wiki/doku.php?id=ff3:ff3us:patches:madsiur:cycle)
 
-## Images
+## Screenshots
 
-![Nighttime on the world map](media/screenshot_a.png)
-
-![Nighttime in Narshe](media/screenshot_b.png)
-
-![Nighttime airship ride](media/screenshot_c.png)
+![screenshots](media/screenshots.png)
 
 
