@@ -2,16 +2,14 @@
 // Global variables and constants
 //===============================================================================
 
-constant data_bank($FF0000)
-constant code_bank($F20000)
+constant data_start($D4F650)
+constant code_bank($FF0000)
 
-constant CONST_FREE_C0($C0D613)                 // free space start (bank $C0)
+constant CONST_FREE_C0($C0D386)                 // free space start (bank $C0)
 constant CONST_FREE_C1($C1FFE5)                 // free space start (bank $C1)
 constant CONST_FREE_C2($C26469)                 // free space start (bank $C2)
 constant CONST_FREE_C3($C3F091)                 // free space start (bank $C3)
-
-variable end_hack(0)                            // variable used to set next asm
-                                                // file starting offset
+constant CONST_FREE_EE($EEAF01)                 // free space start (bank $EE)
 
 //===============================================================================
 // SRAM constants
@@ -71,7 +69,7 @@ constant night_value($05)       // Transition ID where a current transition lowe
 //===============================================================================
 
 constant init_flags((night_prog << 7) + (timer_disabled << 6) + (regular_map << 5) + (init_tint << 4) + transitions)
-log_var("Initial flags byte", init_flags)
+log_var("Initial flags byte value", init_flags)
 
 
 

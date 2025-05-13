@@ -1,6 +1,7 @@
 .devcontainer
 __pycache__
 asm/old
+documentation
 rom/*.bps
 rom/*.ips
 rom/*.smc

@@ -17,7 +17,7 @@ define LOG(1)                   // Set to 1 to enable log messages from
 // e.g. "label_a : $C26468"
 //===============================================================================
 macro scope log_start(define str_message) {
-if {LOG} > 0 {
+    if {LOG} > 0 {
       log_offset({str_message})
     }
 }
@@ -29,7 +29,7 @@ if {LOG} > 0 {
 // e.g. "size : $2000" if pc() returns $E00000 and start is a label at $DFE000
 //===============================================================================
 macro log_end(variable start) {
-if {LOG} > 0 {
+    if {LOG} > 0 {
       variable end(pc())
       log_num_bytes("size", start, end)
     }
@@ -41,7 +41,7 @@ if {LOG} > 0 {
 // e.g. "free : $2000" if pc() returns $DFE0000 and value is a label at $E00000
 //===============================================================================
 macro log_free_space(define value) {
-if {LOG} > 0 {
+    if {LOG} > 0 {
       variable count_end(pc())
       log_num_bytes("free", count_end, {value})
     }

@@ -4,11 +4,15 @@ include "functions/bass.asm"
 include "var/global.asm"
 include "functions/hack.asm"
 include "data/data.asm"
+include "cycle/main_ext.asm"
+include "cycle/main.asm"
 
 //===============================================================================
 // internal header
 //===============================================================================
+
 seek($C0FFB0)
+
 // game code (C3F6  ) 
 db $43, $33, $46, $36, $20, $20
 
