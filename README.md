@@ -7,7 +7,7 @@ This is a revival of my day-night cycle hack project that was about
 - [x] Redo project structure
 - [x] Create basic build script
 - [x] Redo data spreadsheets
-- [ ] Convert the project from xkas 0.06 to bass v14
+- [x] Convert the project from xkas 0.06 to bass v14
 - [ ] Correct any bug with the code conversion
 - [ ] Add to project compatible save files archive
 - [ ] Test playthrough covering all changes and bugfixes if needed
