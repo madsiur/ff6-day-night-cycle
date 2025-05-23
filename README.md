@@ -9,7 +9,7 @@ This is a revival of my day-night cycle hack project that was about
 - [x] Redo data spreadsheets
 - [x] Convert the project from xkas 0.06 to bass v14
 - [ ] Correct any bug with the code conversion
-- [ ] Add to project compatible save files archive
+- [x] Add to project compatible save files archive
 - [ ] Test playthrough covering all changes and bugfixes if needed
 - [ ] Improve code comments and documentation
 - [ ] Beta testing round

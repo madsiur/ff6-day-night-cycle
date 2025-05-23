@@ -1,0 +1,1 @@
+Save files in `vanilla` are taken by `create_saves.py` and copied in `generated` with a timer value and flags value added in SRAM given by the `create_saves.py` arguments. For example `python create_saves.py 0x1E3D 0x0400 0x1E3F 0x89` will write a timer of `0x400` at SRAM offset `0x1E3D` in the three save slots and will do the same for a flags value of `0x89` at `0x1E3F`.
