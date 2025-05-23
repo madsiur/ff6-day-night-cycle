@@ -12,7 +12,7 @@
     fileAccess = createUnoService("com.sun.star.ucb.SimpleFileAccess")
 
     fileOut1 = fileAccess.openFileWrite(basePath & "/asm/data/map_enable.bin")
-    fileOut2 = fileAccess.openFileWrite(basePath & "/asm/data/map_freeze.bin")
+    fileOut2 = fileAccess.openFileWrite(basePath & "/asm/data/map_active.bin")
 
     oSheet = ThisComponent.Sheets(0)
 
@@ -41,7 +41,7 @@ Sub Backgrounds
     fileAccess = createUnoService("com.sun.star.ucb.SimpleFileAccess")
 
     fileOut1 = fileAccess.openFileWrite(basePath & "/asm/data/bg_enable.bin")
-    fileOut2 = fileAccess.openFileWrite(basePath & "/asm/data/bg_palette.bin")
+    fileOut2 = fileAccess.openFileWrite(basePath & "/asm/data/bg_palette_id.bin")
 
     oSheet = ThisComponent.Sheets(1)
 
@@ -74,7 +74,7 @@ Sub Events
     basePath = GetParentDirectory(GetParentDirectory(ThisComponent.URL))
     fileAccess = createUnoService("com.sun.star.ucb.SimpleFileAccess")
 
-    fileOut1 = fileAccess.openFileWrite(basePath & "/asm/data/events.bin")
+    fileOut1 = fileAccess.openFileWrite(basePath & "/asm/data/world_events.bin")
 
     oSheet = ThisComponent.Sheets(2)
 
