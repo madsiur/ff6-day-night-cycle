@@ -64,7 +64,7 @@ macro add_night_tint_code() {
         lda $1C                     // load map tint byte
         beq exit_a                  // exit if map is not tintable
         lda flags                   // load timer flags
-        bit #$10                    // check if cycle disabling flag is set
+        bit #TINT_DISABLED          // check if cycle disabling flag is set
         bne exit_a                  // exit if so
         lda $22                     // battle background palette ID
         sta $4204                   // save as divident
@@ -176,9 +176,9 @@ macro add_night_palette_code() {
 
     scope check_night_battle_ext: {
         lda flags                   // load timer flags
-        and #$0F                    // isolate current transition
+        and #TRANSITIONS            // isolate current transition
         sec                         // set carry for substraction
-        sbc #night_value            // substract transition considered as night
+        sbc #NIGHT_VALUE            // substract transition considered as night
         rtl
     }
 

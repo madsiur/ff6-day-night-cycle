@@ -13,9 +13,9 @@ scope main_loop_C0_ext: {
     lda $1B                     // load map freeze byte
     bne exit                    // exit if map is labeled as freezable
     lda flags                   // load timer flags
-    bit #$40                    // check if freeze flag is set
+    bit #TIMER_DISABLED         // check if freeze flag is set
     bne exit                    // exit if so
-    bit #$10                    // check if cycle disabling flag is set
+    bit #TINT_DISABLED          // check if cycle disabling flag is set
     bne exit                    // exit if so
     ldx #$000E                  // number of bytes to copy to the stack ($58-$65)               
 loop_a:    
@@ -51,7 +51,7 @@ scope init_map_C0_ext: {
     lda $1C                     // load map tint byte
     beq exit                    // exit if map is not tintable
     lda flags                   // load timer flags
-    bit #$10                    // check if cycle disabling flag is set
+    bit #TINT_DISABLED          // check if cycle disabling flag is set
     bne exit                    // exit if so
     ldx #$000A                  // number of bytes to copy to the stack ($5C-$65)               
 loop_a:
@@ -82,7 +82,7 @@ scope init_tint_C0: {
     lda #$FF                    // full palette loop value
     sta $64                     // save as loop value
     jsr load_town_pal           // load regular map tint parameters
-    lda #$20                    // regular map flag
+    lda #REGULAR_MAP            // regular map flag
     tsb flags                   // set as flag
     jsr get_dec_tint_num        // get number of loops for initial tinting
     jsr dec_pal_mul             // tint toward nighttime multiple times
@@ -113,7 +113,7 @@ scope tent_event_C0_ext: {
 log_start("clear_town_flag_ext")
 
 scope clear_town_flag_ext: {
-    lda #$20                    // regular map flag value
+    lda #REGULAR_MAP            // regular map flag value
     trb flags                   // clear flag on timer flags byte
     jsr test                    // set intitial values for world map testing
     lda $1F70,y                 // leftover from hook
@@ -128,7 +128,7 @@ log_start("set_town_flag_ext")
 
 scope set_town_flag_ext: {
     sta $11FA                   // leftover from hook
-    lda #$20                    // regular map flag value
+    lda #REGULAR_MAP            // regular map flag value
     tsb flags                   // set flag on timer flags byte
     rtl
 }
@@ -140,9 +140,9 @@ scope set_town_flag_ext: {
 log_start("init_timer_ext")
 
 scope init_timer_ext: {
-    ldx #trans_length           // load transition timer length
+    ldx #TRANS_LENGTH           // load transition timer length
     stx timer                   // store as timer
-    lda #init_flags             // load initial timer flags
+    lda #INIT_FLAGS             // load initial timer flags
     sta flags                   // store as flags byte
     lda $E6F566                 // leftover from $C0 hook
     rtl
@@ -171,17 +171,17 @@ scope event_command_69_ext: {
     beq enable_cycle            // branch if we enable the cycle
     bra exit                    // invalid event command
 disable_cycle:
-    lda #$10
+    lda #TINT_DISABLED
     tsb flags                   // disable initial tint
 freeze_cycle:
-    lda #$40
+    lda #TIMER_DISABLED
     tsb flags                   // disable timer
     bra exit
 enable_cycle:
-    lda #$10
+    lda #TINT_DISABLED
     trb flags                   // enable initial tint
 unfreeze_cycle:
-    lda #$40
+    lda #TIMER_DISABLED
     trb flags                   // enable timer
 exit:
     rtl
@@ -195,9 +195,9 @@ exit:
 log_start("test")
 
 scope test: {
-    ldx #trans_length           // load transition timer length 
+    ldx #TRANS_LENGTH           // load transition timer length 
     stx timer                   // store as timer
-    lda #init_flags             // load initial timer flags
+    lda #INIT_FLAGS             // load initial timer flags
     sta flags                   // store as flags byte
     rts
 }

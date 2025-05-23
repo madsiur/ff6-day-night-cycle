@@ -9,15 +9,15 @@
 log_start("tent_event")
 
 scope tent_event: {
-    lda #$80                    // Transition direction flag
+    lda #NIGHT_PROG             // Transition direction flag
     tsb flags                   // set transition direction
-    lda #$0F                    // load all possible transition bits
+    lda #TRANSITIONS            // load all possible transition bits
     trb flags                   // clear them
-    lda #transitions            // load transition amount
+    lda #transitions_init       // load transition amount
     dec                         // transition amount minus 1
     tsb flags                   // set transition amount
     rep #$20                    // 16-bit accumulator
-    lda #day_length             // load length of a day
+    lda #DAY_LENGTH             // load length of a day
     sta timer                   // set as timer
     sep #$20                    // 8-bit accumulator
     rts
@@ -38,7 +38,7 @@ scope decrease_timer: {
     beq two_frames_left         // branch if so
     lda timer                   // load timer value
     bne dec_timer               // decrement timer and exit if timer has not reach 0
-    lda #trans_length           // load transition timer value (relevant when
+    lda #TRANS_LENGTH           // load transition timer value (relevant when
                                 // passing from daytime timer to transition timer)
     sta timer                   // save as timer
     bra is_last_frame           // we are the last frame
@@ -57,28 +57,28 @@ is_last_frame:
     sep #$20                    // 8-bit accumulator
     lda flags                   // load timer flags
     sta $64
-    bit #$0F                    // isolate transition ID
+    bit #TRANSITIONS            // isolate transition ID
     beq is_darkest              // if 0, branch to full nighttime switch
-    and #$0F                    // isolate transition ID
-    cmp #transitions            // compare to number of transitions
+    and #TRANSITIONS            // isolate transition ID
+    cmp #transitions_init       // compare to number of transitions
     beq is_brightest            // if both equal, branch to full daytime switch
     lda flags                   // load timer flags
-    and #$80                    // isolate transition direction
+    and #NIGHT_PROG             // isolate transition direction
     bmi is_darker               // branch if we are going toward nighttime
     inc flags                   // increment transition ID by 1
     lda flags                   // load timer flags
-    and #$0F                    // isolate transition ID
+    and #TRANSITIONS            // isolate transition ID
     sec
-    sbc #night_value            // subtract night transition
+    sbc #NIGHT_VALUE            // subtract night transition
     bmi tint                    // exit if night
     lda #event_bit
     trb event_byte              // clear event bit
     bra tint                    // skip next instruction
 is_darker:
     lda flags                   // load timer flags
-    and #$0F                    // isolate transition ID
+    and #TRANSITIONS            // isolate transition ID
     sec
-    sbc #night_value            // subtract night transition
+    sbc #NIGHT_VALUE            // subtract night transition
     bpl not_night               // branch if day
     lda #event_bit
     tsb event_byte              // set event bit
@@ -95,7 +95,7 @@ dec_timer:
     bra not_tint
 
 is_darkest:                     // full nighttime switch
-    lda #$80                    // Transition direction flag
+    lda #NIGHT_PROG             // Transition direction flag
     trb flags                   // set next progression to be toward day
     inc flags                   // increment transition ID by 1 (to avoid inifnite loop) 
     bra set_day_length          // set daylength timer
@@ -107,7 +107,7 @@ is_brightest:                   // full daytime switch
 
 set_day_length:
     rep #$20                    // 16-bit accumulator
-    lda #trans_length           // load length of nighttime
+    lda #TRANS_LENGTH           // load length of nighttime
     sta timer                   // set as timer
 not_tint:
     sep #$20                    // 8-bit accumulator
@@ -190,9 +190,9 @@ log_start("get_dec_tint_num")
 
 scope get_dec_tint_num: {
     lda flags                   // load timer flags
-    and #$0F                    // isolate tint value
+    and #TRANSITIONS            // isolate tint value
     sta $63                     // store as temporary RAM
-    lda #transitions            // compare to maximum tint vehicle
+    lda #transitions_init       // compare to maximum tint vehicle
     dec
     sec                         // set carry for substraction
     sbc $63                     // substract transition value
@@ -213,7 +213,7 @@ scope tint_screen: {
     lda flags                   // load timer flags
     bmi dec_tint                // branch if we are going toward daytime
     lda flags                   // load timer flags
-    bit #$20                    // check if we are on a regular map
+    bit #REGULAR_MAP            // check if we are on a regular map
     bne regular_map_a           // exit if so
     jsr load_world_pal          // load world maps tint parameters
     jsr inc_pal                 // tint toward daytime
@@ -222,13 +222,13 @@ scope tint_screen: {
 regular_map_a:
     jsr load_town_pal           // load regular map tint parameters
 tint_day:
-    jsr inc_pal                // tint toward daytime
+    jsr inc_pal                 // tint toward daytime
 exit:
     rts
 
 dec_tint:
     lda flags                   // load timer flags
-    bit #$20                    // check if we are on a regular map
+    bit #REGULAR_MAP            // check if we are on a regular map
     bne regular_map_b           // exit if so
     jsr load_world_pal          // load world maps tint parameters
     jsr dec_pal

@@ -43,29 +43,43 @@ constant event_byte($7E1E80)    // Night event bit byte ($1E80:2)
 constant event_bit($04)         // Event bit
 
 //===============================================================================
-// Cycle flags
+// Bitmasks
 //===============================================================================
 
-constant transitions(9)         // Number of transitions (0 to 15). Real amount 
+constant TRANSITIONS($0F)
+constant TINT_DISABLED($10)
+constant REGULAR_MAP($20)
+constant TIMER_DISABLED($40)
+constant NIGHT_PROG($80)
+
+//===============================================================================
+// Cycle initial flags
+//===============================================================================
+
+constant transitions_init(9)    // Number of transitions (0 to 15). Real amount 
                                 // is transitions minus 1. 15 is the limit setting
                                 // but would make nighttime look black and blue only.
                                 // Using a value below 4 would make nighttime and
                                 // daytime look quite similar.
 
-constant init_tint(0)           // init_flags bits (0 or 1)
-constant regular_map(0)         // regular_map and night_prog should never be set
-constant timer_disabled(0)      // manually to 1 other than for testing purpose.
-constant night_prog(1)
+// INIT_FLAGS bits (0 or 1)
+// regular_map_init and night_prog_init should never be set
+// manually to 1 other than for testing purpose.
+
+constant tint_disabled_init(0)  
+constant regular_map_init(0)    
+constant timer_disabled_init(0) 
+constant night_prog_init(1)     
 
 //===============================================================================
 // Cycle constants
 //===============================================================================
 
-constant trans_length($0040)    // Transition length time ($003C = one second)
+constant TRANS_LENGTH($0040)    // Transition length time ($003C = one second)
 
-constant day_length($0400)      // Daytime/nghttime length ($0E10 = one minute)
+constant DAY_LENGTH($0400)      // Daytime/nghttime length ($0E10 = one minute)
 
-constant night_value($05)       // Transition ID where a current transition lower
+constant NIGHT_VALUE($05)       // Transition ID where a current transition lower
                                 // than this number will result in a nighttime.
                                 // As an example, if this setting is set to 5, 
                                 // transition 0 to 4 will result in nighttime
@@ -74,8 +88,8 @@ constant night_value($05)       // Transition ID where a current transition lowe
 // Initial flags byte value calculation
 //===============================================================================
 
-constant init_flags((night_prog << 7) + (timer_disabled << 6) + (regular_map << 5) + (init_tint << 4) + transitions)
-log_var("Initial flags byte value", init_flags)
+constant INIT_FLAGS((night_prog_init << 7) + (timer_disabled_init << 6) + (regular_map_init << 5) + (tint_disabled_init << 4) + transitions_init)
+log_var("Initial flags byte value", INIT_FLAGS)
 
 
 

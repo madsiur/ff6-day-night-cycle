@@ -22,7 +22,7 @@ log_start("main_loop_EE_ext")
 
 scope main_loop_EE_ext: {
     lda flags                   // load timer flags
-    bit #$10                    // check if cycle disabling flag is set
+    bit #TINT_DISABLED          // check if cycle disabling flag is set
     bne exit                    // exit if so
     lda $65                     // load RAM we need to backup
     pha                         // save it
@@ -56,7 +56,7 @@ next_event:
     beq exit                    // skip timer decreasing if event has no night cycle 
     sep #$20
     lda flags                   // load timer flags
-    bit #$10
+    bit #TINT_DISABLED
     bne exit
     phx 
     ldx #$000E                  // number of bytes to copy to the stack ($58-$65)               
