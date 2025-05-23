@@ -4,13 +4,6 @@
 //===============================================================================
 
 //===============================================================================
-// Constants
-//===============================================================================
-
-define LOG(1)                   // Set to 1 to enable log messages from
-                                // log_start, log_end and log_free_space 
-
-//===============================================================================
 // log_start
 //
 // write to console a string followed by the pc.
@@ -43,7 +36,7 @@ macro log_end(variable start) {
 macro log_free_space(define value) {
     if {LOG} > 0 {
       variable count_end(pc())
-      log_num_bytes("free", count_end, {value})
+      log_num_bytes("free space", count_end, {value})
     }
 }
 
@@ -139,6 +132,9 @@ macro print_number(variable num) {
         get_char({number})
         evaluate number(num & 0x0F)
         get_char({number})       
+    } else if num == 0 {
+        get_char(0)
+        get_char(0)
     }
 }
 

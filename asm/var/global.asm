@@ -2,7 +2,7 @@
 // Global variables and constants
 //===============================================================================
 
-constant data_start($D4F650)
+constant data_start($FF1000)
 constant code_bank($FF0000)
 
 constant CONST_FREE_C0($C0D386)                 // free space start (bank $C0)
@@ -10,6 +10,12 @@ constant CONST_FREE_C1($C1FFE5)                 // free space start (bank $C1)
 constant CONST_FREE_C2($C26469)                 // free space start (bank $C2)
 constant CONST_FREE_C3($C3F091)                 // free space start (bank $C3)
 constant CONST_FREE_EE($EEAF01)                 // free space start (bank $EE)
+
+define NIGHT_BATTLE_PALS(0)     // Set to 1 if you have a custom set of
+                                // battle background palettes
+
+define LOG(1)                   // Set to 1 to enable log messages from
+                                // log_start, log_end and log_free_space 
 
 //===============================================================================
 // SRAM constants
