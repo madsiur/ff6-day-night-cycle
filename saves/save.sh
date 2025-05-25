@@ -1,3 +1,0 @@
-#!/bin/bash
-
-python create_saves.py 0x1E3D 0x0400 0x1E3F 0x89
